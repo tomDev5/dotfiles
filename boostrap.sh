@@ -1,3 +1,4 @@
+sudo apt -y install build-essential bat
 TIMESTAMP=$(date +%s)
 BACKUP_DIR=~/.old_dotfiles_$TIMESTAMP
 CURRENT_DOTFILES=$(find ~ -maxdepth 1 -type f -name "\.*")
