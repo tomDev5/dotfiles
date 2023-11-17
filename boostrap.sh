@@ -1,4 +1,15 @@
-sudo apt -y install build-essential bat
+required_packages=( bat git vim )
+
+echo "installing required packages..."
+for package in "${required_packages[@]}"
+do
+    if ! dpkg -l $pacakge &>>/dev/null; then
+        sudo apt -y install $pacakge
+    else
+        echo "$package already installed"
+    fi
+done
+
 TIMESTAMP=$(date +%s)
 BACKUP_DIR=~/.old_dotfiles_$TIMESTAMP
 CURRENT_DOTFILES=$(find ~ -maxdepth 1 -type f -name "\.*")
