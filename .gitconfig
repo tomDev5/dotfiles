@@ -1,19 +1,19 @@
 [user]
-	name = TomL
-	email = addr.toml@gmail.com
+    name = TomL
+    email = addr.toml@gmail.com
 
 [alias]
-	a = add -A
-	cm = commit -m
-	co = checkout
-	cb = checkout -b
-	s = status
+    a = add -A
+    cm = commit -m
+    co = checkout
+    cb = checkout -b
+    s = status
 
 [core]
-	editor = vim
+    editor = vim
 
 [pull]
-	rebase = false
+    rebase = false
 
 [pager]
     diff = delta
@@ -22,13 +22,13 @@
     show = delta
 
 [delta]
-	plus-style = "syntax #012800"
+    plus-style = "syntax #012800"
     minus-style = "syntax #340001"
-	line-numbers = true
+    line-numbers = true
 
 [interactive]
     diffFilter = delta --color-only
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [color]
-	ui = auto
+    ui = auto
