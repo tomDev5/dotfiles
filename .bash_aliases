@@ -1,3 +1,11 @@
-alias push="git push origin $(git branch --show-current)"
-alias upstream="git push --set-upstream origin $(git branch --show-current)"
+push() {
+    BRANCH=$(git branch --show-current)
+    git push origin $BRANCH
+}
+
+upstream() {
+    BRANCH=$(git branch --show-current)
+    git push --set-upstream origin $BRANCH
+}
+
 alias cat=batcat
