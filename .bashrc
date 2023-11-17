@@ -69,7 +69,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ll'
 
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
@@ -86,3 +86,5 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+export PATH=$PATH:/home/tom/.local/bin

@@ -1,4 +1,5 @@
-required_packages=( bat git vim )
+mapfile -t required_packages < <(cat apt_packages.txt)
+mapfile -t vscode_extensions < <(cat vscode_extensions.txt)
 
 echo "installing required packages..."
 for package in "${required_packages[@]}"
@@ -6,9 +7,21 @@ do
     if ! dpkg -l $pacakge &>>/dev/null; then
         sudo apt -y install $pacakge
     else
-        echo "$package already installed"
+        echo -e "\t$package already installed"
     fi
 done
+
+if [ $(which code) ]; then
+    echo "installing vscode extensions..."
+    for extension in "${vscode_extensions[@]}"
+    do
+        if [ $(code --list-extensions | grep $extension | wc -l) = 0 ]; then
+            code --install-extension $extension
+        else
+            echo -e "\t$extension already installed"
+        fi
+    done
+fi
 
 TIMESTAMP=$(date +%s)
 BACKUP_DIR=~/.old_dotfiles_$TIMESTAMP
