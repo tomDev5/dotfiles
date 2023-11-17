@@ -7,7 +7,7 @@
 	cm = commit -m
 	co = checkout
 	cb = checkout -b
-	st = status
+	s = status
 
 [core]
 	editor = vim
