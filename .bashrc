@@ -28,6 +28,8 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+[[ $TERM != "screen" ]] && exec tmux
+
 parse_git_branch() {
      git branch --show-current 2>/dev/null | awk '{print "::"$0""}'
 }

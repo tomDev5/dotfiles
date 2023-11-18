@@ -11,6 +11,13 @@ do
     fi
 done
 
+echo "installing tpm..."
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+else
+    echo -e "\ttpm already installed"
+fi
+
 if [ $(which code) ]; then
     echo "installing vscode extensions..."
     for extension in "${vscode_extensions[@]}"
@@ -23,6 +30,7 @@ if [ $(which code) ]; then
     done
 fi
 
+echo "installing dotfiles..."
 TIMESTAMP=$(date +%s)
 BACKUP_DIR=~/.old_dotfiles_$TIMESTAMP
 CURRENT_DOTFILES=$(find ~ -maxdepth 1 -type f -name "\.*")
