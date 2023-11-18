@@ -34,6 +34,13 @@ parse_git_branch() {
      git branch --show-current 2>/dev/null | awk '{print "::"$0""}'
 }
 
+rgb_to_bash_code() {
+    red=$1
+    green=$2
+    blue=$3
+    echo '\033[38;2;'$red';'$green';'$blue'm'
+}
+
 # Set up PS1
 start='${debian_chroot:+($debian_chroot)}'
 user_at_machine='\u@\h'
@@ -42,15 +49,13 @@ path='\w'
 branch='$(parse_git_branch)'
 end_promt='\$ '
 
+ocean=$(rgb_to_bash_code 0 175 175)
+white=$(rgb_to_bash_code 255 255 255)
+orange=$(rgb_to_bash_code 241 80 47)
+
 # If color supported
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # rgb color: '\033[38;2;R;G;Bm'
-    ocean='\033[38;2;0;175;175m'
-    white='\[\033[00m\]'
-    blue='\[\033[01;34m\]'
-    orange='\[\033[0;38;5;208m\]'
-
-    PS1=$start$ocean$user_at_machine$white$colon$blue$path$orange$branch$white$end_promt
+    PS1=$start$ocean$user_at_machine$colon$path$orange$branch$white$end_promt
 else
     PS1=$start$user_at_machine$colon$path$branch$end_promt
 fi
@@ -74,6 +79,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
+
+    # set custom directory color
+    LS_COLORS=$LS_COLORS:'di='$ocean':' ; export LS_COLORS
 fi
 
 # colored GCC warnings and errors
