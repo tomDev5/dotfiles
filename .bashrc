@@ -34,14 +34,25 @@ parse_git_branch() {
      git branch --show-current 2>/dev/null | awk '{print "::"$0""}'
 }
 
-# Force color promt
+# Set up PS1
+start='${debian_chroot:+($debian_chroot)}'
+user_at_machine='\u@\h'
+colon=':'
+path='\w'
+branch='$(parse_git_branch)'
+end_promt='\$ '
+
+# If color supported
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # We have color support; assume it's compliant with Ecma-48
-    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-    # a case would tend to support setf rather than setaf.)
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[0;38;5;208m\]$(parse_git_branch)\[\033[0;00m\]\$ '
+    # rgb color: '\033[38;2;R;G;Bm'
+    ocean='\033[38;2;0;175;175m'
+    white='\[\033[00m\]'
+    blue='\[\033[01;34m\]'
+    orange='\[\033[0;38;5;208m\]'
+
+    PS1=$start$ocean$user_at_machine$white$colon$blue$path$orange$branch$white$end_promt
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
+    PS1=$start$user_at_machine$colon$path$branch$end_promt
 fi
 
 # If this is an xterm set the title to user@host:dir
