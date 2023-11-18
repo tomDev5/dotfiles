@@ -90,3 +90,7 @@ if ! shopt -oq posix; then
 fi
 
 export PATH=$PATH:/home/tom/.local/bin
+
+# fix vscode cli inside tmux
+socket=$(ls -1t /run/user/$UID/vscode-ipc-*.sock 2> /dev/null | head -1)
+export VSCODE_IPC_HOOK_CLI=${socket}
